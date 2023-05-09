@@ -42,7 +42,6 @@ document.querySelector(".thumb-video").onclick = function () {
   modalVideo.classList.add("show");
   iframe.src = "https://www.youtube.com/embed/P206zuHWZTA?autoplay=1";
 
-  // Scroll the video into view when it is opened
   scrollVideoIntoView();
 };
 

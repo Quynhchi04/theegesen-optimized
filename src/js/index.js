@@ -1,7 +1,3 @@
-const { default: scrollIntoViewIfNeeded } = await import(
-  "https://esm.sh/scroll-into-view-if-needed"
-);
-
 const spaceMainHeader = document.querySelector(".space-main-header");
 const mainHeader = document.querySelector(".main-header");
 const modalVideo = document.querySelector(".modal-video");
@@ -95,7 +91,7 @@ window.addEventListener("scroll", function () {
   } else {
     megaMenu.style.top = "150px";
   }
-});
+}, { passive: true });
 
 toggleMegaMenuMobile.onclick = function () {
   megaMenuMobile.classList.toggle("active");
@@ -108,30 +104,7 @@ swiperBanner.style.height = `calc(100vh - ${header.offsetHeight}px)`;
 
 window.addEventListener("resize", function () {
   swiperBanner.style.height = `calc(100vh - ${header.offsetHeight}px)`;
-});
-
-document.addEventListener("keypress", (e) => {
-  if (e.key === " ") {
-    const sections = document.querySelectorAll("section");
-    let currentSection = document.querySelector("section.active");
-    let nextSection = null;
-
-    for (let i = 0; i < sections.length; i++) {
-      if (sections[i] === currentSection) {
-        nextSection = sections[i + 1];
-        break;
-      }
-    }
-    if (nextSection) {
-      scrollIntoViewIfNeeded(nextSection, {
-        block: "start",
-        behavior: "smooth",
-      });
-      currentSection.classList.remove("active");
-      nextSection.classList.add("active");
-    }
-  }
-});
+}, { passive: true });
 
 megaMenuTitles.forEach((item, idx) => {
   const data = item.getAttribute("data");
@@ -141,3 +114,4 @@ megaMenuTitles.forEach((item, idx) => {
     item.classList.remove("active");
   }
 });
+

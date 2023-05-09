@@ -1,7 +1,16 @@
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+
+const { default: scrollIntoViewIfNeeded } = await import(
+  "https://esm.sh/scroll-into-view-if-needed"
+);
+
 const spaceMainHeader = document.querySelector(".space-main-header");
 const mainHeader = document.querySelector(".main-header");
 const modalVideo = document.querySelector(".modal-video");
 const iframe = modalVideo.querySelector("iframe");
+const ytcontainer = document.querySelector("youtube-container");
+const videoId = "P206zuHWZTA";
+new LiteYoutubeEmbed(ytcontainer, { videoId })
 const headerTop = document.querySelector(".top-header");
 const megaMenu = document.querySelector(".mega-menu");
 const toggleMobile = document.querySelector(".toggle-mobile");
@@ -21,10 +30,23 @@ if (!modalVideo.classList.contains("show")) {
   iframe.src = "";
 }
 
+function scrollVideoIntoView() {
+  scrollIntoViewIfNeeded(ytContainer, {
+    behavior: "smooth",
+    block: "start",
+    inline: "nearest",
+  });
+}
+
 document.querySelector(".thumb-video").onclick = function () {
   modalVideo.classList.add("show");
   iframe.src = "https://www.youtube.com/embed/P206zuHWZTA?autoplay=1";
+
+  // Scroll the video into view when it is opened
+  scrollVideoIntoView();
 };
+
+window.addEventListener("scroll", scrollVideoIntoView, { passive: true });
 document.querySelector(".close-modal-video").onclick = function () {
   modalVideo.classList.remove("show");
   iframe.src = "";
@@ -104,7 +126,8 @@ swiperBanner.style.height = `calc(100vh - ${header.offsetHeight}px)`;
 
 window.addEventListener("resize", function () {
   swiperBanner.style.height = `calc(100vh - ${header.offsetHeight}px)`;
-}, { passive: true });
+});
+
 
 megaMenuTitles.forEach((item, idx) => {
   const data = item.getAttribute("data");
@@ -114,4 +137,3 @@ megaMenuTitles.forEach((item, idx) => {
     item.classList.remove("active");
   }
 });
-
